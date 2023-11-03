@@ -1,2 +1,2 @@
 # server-sent-events
-Repository for InfoQ article on Server Sent Events
+Repository for sample code of InfoQ Article on Server Sent Events
