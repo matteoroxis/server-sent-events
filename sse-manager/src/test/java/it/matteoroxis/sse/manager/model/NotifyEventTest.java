@@ -1,77 +1,60 @@
 package it.matteoroxis.sse.manager.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NotifyEventTest {
+class NotifyEventTest {
 
-    private NotifyEvent notifyEvent;
+    @Test
+    void testNotifyEventCreation() {
+        // Arrange
+        String id = "1";
+        String score = "2-1";
+        String homeTeam = "Team A";
+        String awayTeam = "Team B";
+        String scorer = "John Doe";
 
-    @BeforeEach
-    public void setUp() {
-        notifyEvent = new NotifyEvent(
-                "1",
-                "2-1",
-                "John Doe",
-                "Away Team",
-                "Home Team"
-        );
+        // Act
+        NotifyEvent event = new NotifyEvent(id, score, homeTeam, awayTeam, scorer);
+
+        // Assert
+        assertEquals(id, event.id());
+        assertEquals(score, event.score());
+        assertEquals(homeTeam, event.homeTeam());
+        assertEquals(awayTeam, event.awayTeam());
+        assertEquals(scorer, event.scorer());
     }
 
     @Test
-    public void testGetId() {
-        assertEquals("1", notifyEvent.getId());
+    void testNotifyEventEquality() {
+        // Arrange
+        NotifyEvent event1 = new NotifyEvent("1", "2-1", "Team A", "Team B", "John Doe");
+        NotifyEvent event2 = new NotifyEvent("1", "2-1", "Team A", "Team B", "John Doe");
+
+        // Act & Assert
+        assertEquals(event1, event2);
     }
 
     @Test
-    public void testSetId() {
-        notifyEvent.setId("2");
-        assertEquals("2", notifyEvent.getId());
+    void testNotifyEventToString() {
+        // Arrange
+        NotifyEvent event = new NotifyEvent("1", "2-1", "Team A", "Team B", "John Doe");
+
+        // Act
+        String expectedToString = "NotifyEvent[id=1, score=2-1, homeTeam=Team A, awayTeam=Team B, scorer=John Doe]";
+
+        // Assert
+        assertEquals(expectedToString, event.toString());
     }
 
     @Test
-    public void testGetScore() {
-        assertEquals("2-1", notifyEvent.getScore());
-    }
+    void testNotifyEventHashCode() {
+        // Arrange
+        NotifyEvent event1 = new NotifyEvent("1", "2-1", "Team A", "Team B", "John Doe");
+        NotifyEvent event2 = new NotifyEvent("1", "2-1", "Team A", "Team B", "John Doe");
 
-    @Test
-    public void testSetScore() {
-        notifyEvent.setScore("3-0");
-        assertEquals("3-0", notifyEvent.getScore());
-    }
-
-    @Test
-    public void testGetHomeTeam() {
-        assertEquals("Home Team", notifyEvent.getHomeTeam());
-    }
-
-    @Test
-    public void testSetHomeTeam() {
-        notifyEvent.setHomeTeam("New Home Team");
-        assertEquals("New Home Team", notifyEvent.getHomeTeam());
-    }
-
-    @Test
-    public void testGetAwayTeam() {
-        assertEquals("Away Team", notifyEvent.getAwayTeam());
-    }
-
-    @Test
-    public void testSetAwayTeam() {
-        notifyEvent.setAwayTeam("New Away Team");
-        assertEquals("New Away Team", notifyEvent.getAwayTeam());
-    }
-
-    @Test
-    public void testGetScorer() {
-        assertEquals("John Doe", notifyEvent.getScorer());
-    }
-
-    @Test
-    public void testSetScorer() {
-        notifyEvent.setScorer("Jane Smith");
-        assertEquals("Jane Smith", notifyEvent.getScorer());
+        // Act & Assert
+        assertEquals(event1.hashCode(), event2.hashCode());
     }
 }
 
